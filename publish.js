@@ -8,8 +8,6 @@ const tag = currentBranch.slice(
   currentBranch.length
 );
 console.log("当前分支：", currentBranch);
-// execSync("git checkout master");
-
 if (currentBranch !== "master") {
   execSync("git add .");
   execSync(`git commit -m ${currentBranch}发版`);
@@ -21,8 +19,12 @@ if (currentBranch !== "master") {
 execSync("git pull origin master");
 execSync(`git merge ${currentBranch}`);
 execSync(`git merge ${currentBranch}`);
+execSync("git add .");
+execSync(`git commit -m merge:${currentBranch}`);
+execSync(`git pull origin master`);
+execSync(`git push origin master`);
+
 execSync(`git tag ${tag}`);
 execSync("git push origin --tags");
-
 execSync(`git push origin :${currentBranch}`);
 execSync(`git branch ${currentBranch} -D`);
